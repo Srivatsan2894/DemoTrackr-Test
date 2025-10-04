@@ -8,20 +8,31 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { DemoLogDialog } from "@/components/DemoLogDialog";
+import { UserProfileMenu } from "@/components/UserProfileMenu";
+import { useAuth } from "@/hooks/useAuth";
 import Dashboard from "@/pages/Dashboard";
 import DemoLog from "@/pages/DemoLog";
 import Insights from "@/pages/Insights";
 import Accounts from "@/pages/Accounts";
+import Landing from "@/pages/Landing";
 import NotFound from "@/pages/not-found";
 import { BarChart3, Home, ListChecks, Target } from "lucide-react";
 
 function Router() {
+  const { isAuthenticated, isLoading } = useAuth();
+
   return (
     <Switch>
-      <Route path="/" component={Dashboard} />
-      <Route path="/demos" component={DemoLog} />
-      <Route path="/insights" component={Insights} />
-      <Route path="/accounts" component={Accounts} />
+      {isLoading || !isAuthenticated ? (
+        <Route path="/" component={Landing} />
+      ) : (
+        <>
+          <Route path="/" component={Dashboard} />
+          <Route path="/demos" component={DemoLog} />
+          <Route path="/insights" component={Insights} />
+          <Route path="/accounts" component={Accounts} />
+        </>
+      )}
       <Route component={NotFound} />
     </Switch>
   );
@@ -56,8 +67,17 @@ const pageConfig: Record<string, { title: string; icon: any; color: string; grad
 
 function AppContent() {
   const [location] = useLocation();
+  const { isAuthenticated } = useAuth();
   const currentPage = pageConfig[location] || pageConfig["/"];
   const Icon = currentPage.icon;
+
+  if (!isAuthenticated) {
+    return (
+      <div className="flex-1">
+        <Router />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col flex-1">
@@ -77,6 +97,7 @@ function AppContent() {
           <div className="flex items-center gap-2">
             <DemoLogDialog />
             <ThemeToggle />
+            <UserProfileMenu />
           </div>
         </div>
         <div className={`h-1 bg-gradient-to-r ${currentPage.gradient}`} />
