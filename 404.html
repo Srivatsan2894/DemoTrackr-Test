@@ -2,25 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Redirecting...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to DemoTrackr-Test...</title>
+    <style>
+        /* Optional basic styling to provide feedback while loading */
+        body { 
+            font-family: sans-serif; 
+            text-align: center; 
+            padding: 50px; 
+            background-color: #f4f4f4;
+        }
+    </style>
     <script type="text/javascript">
-        // Single Page Apps for GitHub Pages
-        // This script is the "magic" to redirect 404s back to index.html
+        // ** GitHub Pages Single-Page Application (SPA) Router Fix **
+        // This script runs when the GitHub Pages server returns the 404 page for any sub-route.
         (function(){
+          // 1. Check if we are already in a redirect loop (optional, but robust)
           var redirect = sessionStorage.getItem('redirect');
-          // If a redirect session variable exists, clear it and redirect
+          
           if (redirect) {
             sessionStorage.removeItem('redirect');
-            window.location.replace(redirect);
+            // We've already been here, so just send the user back to the base path.
+            window.location.replace(window.location.protocol + "//" + window.location.host + '/DemoTrackr-Test/');
           } else {
-            // Store the path in sessionStorage and redirect to index.html
+            // 2. Store the current invalid path (e.g., /DemoTrackr-Test/some-page)
+            // The SPA router will use this path to navigate to the correct view once loaded.
             sessionStorage.setItem('redirect', window.location.href);
-            window.location.replace(window.location.protocol + "//" + window.location.host + '/<REPOSITORY_NAME>/');
+
+            // 3. Redirect the browser to the base index.html file.
+            // Replace 'DemoTrackr-Test' with your actual repository name.
+            window.location.replace(window.location.protocol + "//" + window.location.host + '/DemoTrackr-Test/');
           }
         })();
     </script>
 </head>
 <body>
-    If you are not redirected automatically, follow this <a href="/<REPOSITORY_NAME>/" id="redirectLink">link</a>.
+    <h2>Loading Application...</h2>
+    <p>If you are not redirected in a moment, please ensure JavaScript is enabled or use this manual <a href="/DemoTrackr-Test/" id="redirectLink">link</a>.</p>
 </body>
 </html>
