@@ -4,7 +4,11 @@ import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
-  base: '/DemoTrackr-Test/',   // <<< ADD THIS LINE
+  // **CRITICAL FIX for GitHub Pages Deployment**
+  // Sets the base public path for the assets.
+  // Replace 'DemoTrackr-Test' with your exact repository name.
+  base: '/DemoTrackr-Test/',
+  
   plugins: [
     react(),
     runtimeErrorOverlay(),
