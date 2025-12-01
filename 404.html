@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+        // Single Page Apps for GitHub Pages
+        // This script is the "magic" to redirect 404s back to index.html
+        (function(){
+          var redirect = sessionStorage.getItem('redirect');
+          // If a redirect session variable exists, clear it and redirect
+          if (redirect) {
+            sessionStorage.removeItem('redirect');
+            window.location.replace(redirect);
+          } else {
+            // Store the path in sessionStorage and redirect to index.html
+            sessionStorage.setItem('redirect', window.location.href);
+            window.location.replace(window.location.protocol + "//" + window.location.host + '/<REPOSITORY_NAME>/');
+          }
+        })();
+    </script>
+</head>
+<body>
+    If you are not redirected automatically, follow this <a href="/<REPOSITORY_NAME>/" id="redirectLink">link</a>.
+</body>
+</html>
